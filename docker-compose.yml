@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  api:
+    image: node:alpine
+    volumes: 
+      - "./api:/app"
+    working_dir: "/app"
+    command: "npm start"
+  front:
+    image: node:alpine
+    volumes:
+      - "./front:/app"
+    working_dir: "/app"
+    tty: true
+    stdin_open: true
+    environment: 
+      BROWSER: "none"
+    command: "npm start"
+  web:
+    image: nginx
+    ports: 
+      - "80:80"
+    volumes:
+      - "./web:/etc/nginx/conf.d"
